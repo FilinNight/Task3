@@ -26,25 +26,25 @@ public class Game {
         final byte[] key = secretRandomKey();
         final byte[] hmac = getHMAC(key, args[indexComputerMove]);
 
-        System.out.println("\nHMAC: " + getValueBytes(hmac) +"\n");
+        System.out.println("\n HMAC: " + getValueBytes(hmac) +"\n");
 
         showMenu(args);
 
         indexYourMove = getIndexAnswerPlayer(args.length);
 
-        System.out.println("\nYour move:     " + args[indexYourMove]);
-        System.out.println("Computer move: " + args[indexComputerMove]);
+        System.out.println("\n Your move:     " + args[indexYourMove]);
+        System.out.println(" Computer move: " + args[indexComputerMove]);
 
         startBattle(indexYourMove, indexComputerMove, args);
 
-        System.out.println("HMAC key: " + getValueBytes(key) + "\n");
+        System.out.println(" HMAC key: " + getValueBytes(key) + "\n\n");
     }
 
     private static void showMenu(String[] args) {
-        System.out.println("Available moves:");
+        System.out.println(" Available moves:\n");
         for (int i = 0; i < args.length; i++)
-            System.out.println(i + 1 + " - " + args[i]);
-        System.out.println("0 - exit");
+            System.out.println(" " + (i + 1) + " - " + args[i]);
+        System.out.println("\n 0 - exit");
     }
 
     private static void startBattle(int indexYou, int indexComputer, String[] args) {
@@ -52,7 +52,7 @@ public class Game {
         boolean isWin = false;
 
         if (indexYou == indexComputer) {
-            System.out.println("------------------\n    Nobody won    \n------------------");
+            System.out.println("\n Result:\n ------------------\n    Nobody won    \n ------------------\n");
             return;
         }
 
@@ -73,29 +73,29 @@ public class Game {
         }
 
         if (isWin) {
-            System.out.println("\nResult:\n------------------\n     YOU WIN!     \n------------------\n");
+            System.out.println("\n Result:\n ------------------\n     YOU WIN!     \n ------------------\n");
         } else {
-            System.out.println("\nResult:\n------------------\n    You lose...   \n------------------\n");
+            System.out.println("\n Result:\n ------------------\n    You lose...   \n ------------------\n");
         }
     }
 
     private static int getIndexAnswerPlayer(int maxLength) {
-        System.out.print("\nEnter your move: ");
+        System.out.print("\n Enter your move: ");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int answer = 0;
         try {
             answer = Integer.parseInt(br.readLine());
             if(answer < 0 || answer > maxLength){
-                System.out.println( "------------------------\nError: incorrect input!\n(Try again)\n------------------------");
-                getIndexAnswerPlayer(maxLength);
+                System.out.println( "\n ------------------------\n Error: incorrect input!\n (Try again)\n ------------------------");
+                answer = getIndexAnswerPlayer(maxLength) + 1;
             }
             if(answer == 0){
-                System.out.println("Bye!");
+                System.out.println("\n Bye!\n");
                 System.exit(0);
             }
         } catch (Exception e){
-            System.out.println( "------------------------\nError: incorrect input!\n(Try again)\n------------------------");
-            getIndexAnswerPlayer(maxLength);
+            System.out.println( "\n ------------------------\n Error: incorrect input!\n (Try again)\n ------------------------");
+            answer = getIndexAnswerPlayer(maxLength) + 1;
         }
         return answer - 1;
     }
@@ -103,9 +103,9 @@ public class Game {
     private static boolean checkCorrectArgs(String[] args) {
         HashSet<String> tmp = new HashSet<String>(Arrays.asList(args));
         if(tmp.size() != args.length){
-            System.out.println("\nError: You entered the wrong number of arguments!");
+            System.out.println("\n Error: You entered the wrong number of arguments!");
             System.out
-                .println("(enter an odd number of parameters so that there are more than 2 of them, and that there are no duplicate elements)\n");
+                .println(" (enter an odd number of parameters so that there are more than 2 of them, and that there are no duplicate elements)\n");
             return false;
         }
 
@@ -113,9 +113,9 @@ public class Game {
         if (args.length % 2 != 0 && args.length > 2) {
             return true;
         } else {
-            System.out.println("\nError: You entered the wrong number of arguments!");
+            System.out.println("\n Error: You entered the wrong number of arguments!");
             System.out
-                .println("(enter an odd number of parameters so that there are more than 2 of them, and that there are no duplicate elements)\n");
+                .println(" (enter an odd number of parameters so that there are more than 2 of them, and that there are no duplicate elements)\n");
             return false;
         }
     }

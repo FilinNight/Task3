@@ -32,12 +32,12 @@ public class Game {
 
         indexYourMove = getIndexAnswerPlayer(args.length);
 
-        System.out.println("\nYour move: " + args[indexYourMove]);
+        System.out.println("\nYour move:     " + args[indexYourMove]);
         System.out.println("Computer move: " + args[indexComputerMove]);
 
         startBattle(indexYourMove, indexComputerMove, args);
 
-        System.out.println("HMAC key: " + getValueBytes(key));
+        System.out.println("HMAC key: " + getValueBytes(key) + "\n");
     }
 
     private static void showMenu(String[] args) {
@@ -73,14 +73,14 @@ public class Game {
         }
 
         if (isWin) {
-            System.out.println("------------------\n     YOU WIN!     \n------------------");
+            System.out.println("\nResult:\n------------------\n     YOU WIN!     \n------------------\n");
         } else {
-            System.out.println("------------------\n    You lose...   \n------------------");
+            System.out.println("\nResult:\n------------------\n    You lose...   \n------------------\n");
         }
     }
 
     private static int getIndexAnswerPlayer(int maxLength) {
-        System.out.print("Enter your move: ");
+        System.out.print("\nEnter your move: ");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int answer = 0;
         try {
@@ -98,11 +98,6 @@ public class Game {
             getIndexAnswerPlayer(maxLength);
         }
         return answer - 1;
-    }
-
-    private static int randomValue(int range) {
-        Random random = new Random();
-        return random.nextInt(range);
     }
 
     private static boolean checkCorrectArgs(String[] args) {
@@ -123,6 +118,11 @@ public class Game {
                 .println("(enter an odd number of parameters so that there are more than 2 of them, and that there are no duplicate elements)\n");
             return false;
         }
+    }
+
+    private static int randomValue(int range) {
+        Random random = new Random();
+        return random.nextInt(range);
     }
 
     private static byte[] secretRandomKey() throws NoSuchAlgorithmException {

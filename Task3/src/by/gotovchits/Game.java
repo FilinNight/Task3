@@ -6,6 +6,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -24,7 +26,7 @@ public class Game {
         final byte[] key = secretRandomKey();
         final byte[] hmac = getHMAC(key, args[indexComputerMove]);
 
-        System.out.println("HMAC: " + getValueBytes(hmac) +"\n");
+        System.out.println("\nHMAC: " + getValueBytes(hmac) +"\n");
 
         showMenu(args);
 
@@ -104,12 +106,21 @@ public class Game {
     }
 
     private static boolean checkCorrectArgs(String[] args) {
+        HashSet<String> tmp = new HashSet<String>(Arrays.asList(args));
+        if(tmp.size() != args.length){
+            System.out.println("\nError: You entered the wrong number of arguments!");
+            System.out
+                .println("(enter an odd number of parameters so that there are more than 2 of them, and that there are no duplicate elements)\n");
+            return false;
+        }
+
+
         if (args.length % 2 != 0 && args.length > 2) {
             return true;
         } else {
-            System.out.println("Error: You entered the wrong number of arguments!");
+            System.out.println("\nError: You entered the wrong number of arguments!");
             System.out
-                .println("(enter an odd number of parameters, and so that there are more than 2)");
+                .println("(enter an odd number of parameters so that there are more than 2 of them, and that there are no duplicate elements)\n");
             return false;
         }
     }

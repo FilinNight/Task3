@@ -20,6 +20,11 @@ public class Game {
         }
     }
 
+
+    public static void test(){
+        System.out.println("bla blaa bla");
+    }
+
     public static void start(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
         int indexYourMove = -1;
         final int indexComputerMove = randomValue(args.length);
